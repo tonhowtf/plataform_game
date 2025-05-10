@@ -417,15 +417,16 @@ MAP4 = [
 '  P   X     X       ',
 'XXXXXSSSSSSSSSSSSSXX']
 
-TEXT_INTRO = """Num despertar envolto em névoas prateadas, o guerreiro abriu os olhos sob um dossel vivo de folhas entrelaçadas que sussurravam histórias.
-Seu coração bateu com estranha curiosidade,
+TEXT_INTRO = """Disclaimer: Tirei os acentos, porque estavam bugados. 
+Num despertar envolto em nevoas prateadas, o guerreiro abriu os olhos sob um dossel vivo de folhas entrelacadas que sussurravam historias.
+Seu coracao bateu com estranha curiosidade,
 pois ali não havia muralhas nem clarins, apenas o murmúrio antigo do vento e o aroma terroso de musgo molhado.
 
-Você certamente acaba achando alguma coisa
-se olhar mas nem sempre é a alguma coisa
+Voce certamente acaba achando alguma coisa
+se olhar mas nem sempre eh a alguma coisa
 que você estava procurando. """
 GAMEOVER_TEXT = """GAME OVER! Suas forças falharam e as sombras venceram.
-O véu das eras se fecha em torno de você.
+O veu das eras se fecha em torno de você.
 FIM DE JOGO."""
 
 class Scene:
@@ -679,7 +680,7 @@ class GameOver(Scene):
         self.fade.fadein()
         if self.won:
             self.start_music(music, 'win') # type: ignore
-            self.game_over_message = "As névoas se dissipam. O guerreiro triunfou, e a floresta agora sussurra seu nome entre as folhas. VITÓRIA!"
+            self.game_over_message = "As nevoas se dissipam. O guerreiro triunfou, e a floresta agora sussurra seu nome entre as folhas. VITORIA!"
         else:
             self.start_music(music, 'gameover') # type: ignore
             self.game_over_message = GAMEOVER_TEXT
