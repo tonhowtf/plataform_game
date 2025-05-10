@@ -9,6 +9,7 @@ HEIGHT = 720
 COLOR_BG = (20, 20, 30)
 TILE_SIZE = 64
 n_stage = 0
+sound_enabled = True
 
 class Vector2:
     def __init__(self, x, y):
@@ -232,7 +233,7 @@ class Player(Obj):
             
     def return_to_start(self):
         self.x, self.y = self.start_position
-        sounds.death.play() # type: ignore
+        if sound_enabled: sounds.death.play() # type: ignore
 
     def drop_platform(self):
         if self.y > HEIGHT + 200:
@@ -298,11 +299,11 @@ class Player(Obj):
             if keyboard.z and self.on_ground: # type: ignore
                 self.on_ground = False
                 self.direction.y = self.jump_speed
-                sounds.jump.play() # type: ignore
+                if sound_enabled: sounds.jump.play() # type: ignore
             if keyboard.x and not self.on_ground and self.n_dash > 0: # type: ignore
                 self.can_dash = True
                 self.n_dash -=1
-                sounds.dash.play() # type: ignore
+                if sound_enabled: sounds.dash.play() # type: ignore
                 if self.flip: self.direction.x = -self.dash_speed 
                 else: self.direction.x = self.dash_speed
                 self.direction.y = 0 
@@ -438,11 +439,17 @@ class Scene:
         self.world_map = [MAP0, MAP1, MAP2, MAP3, MAP4] 
 
     def start_music(self, lib, music_name):
+        global sound_enabled
         try:
-            if lib and hasattr(lib, 'play'):
-                lib.play(music_name)
-        except NameError:
+            music.play(music_name)
+            if sound_enabled:
+                music.set_volume(1.0)
+            else:
+                music.set_volume(0)
+        except Exception as e:
+            print(f"'{music_name}': {e}")
             pass
+
 
     def create_particles(self, x, y):
         for _ in range(10):
@@ -554,7 +561,8 @@ class MenuScene(Scene):
             'bg2': BgAnimated('menu/bg', -360), 
             'title': Obj('menu/title', (WIDTH / 2 - 230, HEIGHT / 2 - 300), self.all_sprites),
             'button_play': Button('menu/text_start', (WIDTH / 2 - 57, HEIGHT / 2 + 50), self.all_sprites),
-            'button_exit': Button('menu/text_exit', (WIDTH / 2 - 57, HEIGHT / 2 + 150), self.all_sprites)
+            'button_exit': Button('menu/text_exit', (WIDTH / 2 - 57, HEIGHT / 2 + 150), self.all_sprites),
+            'button_sound': Button('menu/sound', (WIDTH / 2 - 57, HEIGHT / 2 + 250), self.all_sprites)
         }
         self.fade = Fade(self.all_sprites)
         self.fade.fadein()
@@ -571,10 +579,17 @@ class MenuScene(Scene):
         if key == keys.RETURN: self.change_scene(Intro()) # type: ignore
 
     def on_mouse_down(self, pos):
+        global sound_enabled
         if self.menu_itens['button_play'].collidepoint(pos):
             self.change_scene(Intro())
         elif self.menu_itens['button_exit'].collidepoint(pos):
             quit()
+        elif self.menu_itens['button_sound'].collidepoint(pos):
+            sound_enabled = not sound_enabled
+            if sound_enabled:
+                music.set_volume(1.0) 
+            else:
+                music.set_volume(0)
 
     def update(self):
         self.menu_itens['bg1'].update(speed=1, limit=1080, start_position=360)
@@ -648,7 +663,7 @@ class GameScene(Scene):
                     player_collided_with_obstacle_this_frame = True 
                     if self.player.life > 1:
                         self.player.life -= 1
-                        sounds.death.play() # type: ignore
+                        if sound_enabled: sounds.death.play() # type: ignore
                         self.create_particles(self.player.x, self.player.y)
                         self.player.return_to_start()
                     else: 
@@ -661,7 +676,7 @@ class GameScene(Scene):
                 elif sprite.name == "coin":
                     if sprite in self.all_collisions: self.all_collisions.remove(sprite)
                     if sprite in self.all_sprites: self.all_sprites.remove(sprite)
-                    sounds.coin.play() # type: ignore
+                    if sound_enabled: sounds.coin.play() # type: ignore
 
     def update(self):
         for sprite in self.all_sprites: sprite.update() 

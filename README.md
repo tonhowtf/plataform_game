@@ -4,15 +4,14 @@ Um jogo de plataforma clássico desenvolvido com 💻 **Python + PGZero**, onde 
 
 ## ✨ Sobre o Projeto
 
-O objetivo principal é guiar o personagem através de múltiplas fases, cada uma com seus próprios desafios, inimigos e perigos. O jogo implementa mecânicas como movimentação baseada em física (gravidade), pulos, um sistema de "dash" (impulso), vidas limitadas, coleta de itens e progressão por diferentes estágios. Foi cuidadosamente criado para atender a um conjunto específico de requisitos e demonstrar boas práticas de codificação em Pygame Zero.
+O objetivo principal é guiar o personagem através de múltiplas fases, cada uma com seus próprios desafios, inimigos e perigos. O jogo implementa mecânicas como movimentação baseada em física (gravidade), pulos, um sistema de "dash" (impulso), vidas limitadas, coleta de moedas e progressão por diferentes estágios. Foi cuidadosamente criado para atender a um conjunto específico de requisitos e demonstrar boas práticas de codificação em Pygame Zero.
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
 -   **Python 3.x** (Recomenda-se Python 3.7 ou mais recente)
--   **PGZero (Pygame Zero)** - (A biblioteca Pygame é instalada automaticamente como uma dependência do PGZero)
--   
+-   **PGZero (Pygame Zero)** - (A biblioteca Pygame é instalada automaticamente como uma dependência do PGZero) 
 
 ---
 
